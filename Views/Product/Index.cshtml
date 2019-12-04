@@ -1,7 +1,7 @@
 ﻿@model System.Data.DataTable
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Proizvodi";
 }
 
 <h2>Proizvodi</h2>
@@ -47,6 +47,9 @@
         </td>
         <td>
             @Model.Rows[i][6]
+        </td>
+        <td>
+            @Html.ActionLink("Izmeni proizvod", "Edit", new { @id = @Model.Rows[i][0] })
         </td>
     </tr>
 }

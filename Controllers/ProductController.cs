@@ -51,51 +51,67 @@ namespace MVC_app.Controllers
                 sqlCmd.Parameters.AddWithValue("@Cena", productModel.Cena);
                 sqlCmd.ExecuteNonQuery();
             }
+
             return RedirectToAction("Index");
         }
 
-        // GET: Product/Edit/5
+        // GET: Product/Edit/id
+        [HttpGet]
         public ActionResult Edit(int id)
         {
-            return View();
-        }
+            ProductModel productModel = new ProductModel();
+            DataTable dtblProduct = new DataTable();
 
-        // POST: Product/Edit/5
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
-        {
-            try
+            using(SqlConnection sqlCon = new SqlConnection(connectionString))
             {
-                // TODO: Add update logic here
+                sqlCon.Open();
+                string query = "SELECT * FROM Proizvodi WHERE ID = @ID";
+                SqlDataAdapter sqlDa = new SqlDataAdapter(query, sqlCon);
+                sqlDa.SelectCommand.Parameters.AddWithValue("@ID", id);
+                sqlDa.Fill(dtblProduct);
+            }
 
+            if(dtblProduct.Rows.Count == 1)
+            {
+                productModel.ID = Convert.ToInt32(dtblProduct.Rows[0][0].ToString());
+                productModel.Naziv = dtblProduct.Rows[0][1].ToString();
+                productModel.Opis = dtblProduct.Rows[0][2].ToString();
+                productModel.Kategorija = dtblProduct.Rows[0][3].ToString();
+                productModel.Proizvodjac = dtblProduct.Rows[0][4].ToString();
+                productModel.Dobavljac = dtblProduct.Rows[0][5].ToString();
+                productModel.Cena = Convert.ToDecimal(dtblProduct.Rows[0][6].ToString());
+
+                return View(productModel);
+            }
+
+            else
+            {
                 return RedirectToAction("Index");
             }
-            catch
-            {
-                return View();
-            }
+            
         }
 
-        // GET: Product/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: Product/Delete/5
+        // POST: Product/Edit/id
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public ActionResult Edit(ProductModel productModel)
         {
-            try
+            using (SqlConnection sqlCon = new SqlConnection(connectionString))
             {
-                // TODO: Add delete logic here
+                sqlCon.Open();
+                string query = "UPDATE Proizvodi SET Naziv = @Naziv, Opis = @Opis, Kategorija = @Kategorija, Proizvodjac = @Proizvodjac, Dobavljac = @Dobavljac, Cena = @Cena WHERE ID = @ID";
+                SqlCommand sqlCmd = new SqlCommand(query, sqlCon);
+                sqlCmd.Parameters.AddWithValue("@ID", productModel.ID);
+                sqlCmd.Parameters.AddWithValue("@Naziv", productModel.Naziv);
+                sqlCmd.Parameters.AddWithValue("@Opis", productModel.Opis);
+                sqlCmd.Parameters.AddWithValue("@Kategorija", productModel.Kategorija);
+                sqlCmd.Parameters.AddWithValue("@Proizvodjac", productModel.Proizvodjac);
+                sqlCmd.Parameters.AddWithValue("@Dobavljac", productModel.Dobavljac);
+                sqlCmd.Parameters.AddWithValue("@Cena", productModel.Cena);
+                sqlCmd.ExecuteNonQuery();
+            }
 
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+            return RedirectToAction("Index");
         }
+
     }
 }

@@ -10,6 +10,7 @@ namespace MVC_app.Models
     {
         public int ID { get; set; }
         public string Naziv { get; set; }
+
         [DataType(DataType.MultilineText)]
         public string Opis { get; set; }
         public string Kategorija { get; set; }
