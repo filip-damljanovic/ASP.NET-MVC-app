@@ -1,11 +1,10 @@
 ﻿@model MVC_app.Models.ProductModel
 
 @{
-    ViewBag.Title = "Dodaj novi proizvod JSON";
+    ViewBag.Title = "Izmeni proizvod JSON";
 }
 
-
-<h2>Dodaj novi</h2>
+<h2>Izmeni</h2>
 
 
 @using (Html.BeginForm())
@@ -16,6 +15,8 @@
         <h4>Proizvod</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.ID)
+
         <div class="form-group">
             @Html.LabelFor(model => model.Naziv, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -66,7 +67,7 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Dodaj" class="btn btn-default" />
+                <input type="submit" value="Sacuvaj" class="btn btn-default" />
             </div>
         </div>
     </div>

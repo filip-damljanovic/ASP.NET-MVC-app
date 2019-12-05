@@ -3,10 +3,6 @@
     ViewBag.Title = "Proizvodi JSON";
 }
 
-<p style="margin-top: 20px;">
-    @Html.ActionLink("MSSQL Implementacija", "Index")
-</p>
-
 <h2>Proizvodi JSON</h2>
 
 <table class="table table-bordered table-striped">
@@ -33,26 +29,29 @@
 
     @foreach (var item in Model)
     {
-        <tr>
-            <td>
-                @item.Naziv
-            </td>
-            <td>
-                @item.Opis
-            </td>
-            <td>
-                @item.Kategorija
-            </td>
-            <td>
-                @item.Proizvodjac
-            </td>
-            <td>
-                @item.Dobavljac
-            </td>
-            <td>
-                @item.Cena
-            </td>
-        </tr>
+<tr>
+    <td>
+        @item.Naziv
+    </td>
+    <td>
+        @item.Opis
+    </td>
+    <td>
+        @item.Kategorija
+    </td>
+    <td>
+        @item.Proizvodjac
+    </td>
+    <td>
+        @item.Dobavljac
+    </td>
+    <td>
+        @item.Cena
+    </td>
+    <td>
+        @Html.ActionLink("Izmeni proizvod", "EditJSON", new { @id = @item.ID })
+    </td>
+</tr>
     }
 
 </table>

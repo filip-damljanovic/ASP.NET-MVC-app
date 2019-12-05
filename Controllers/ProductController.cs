@@ -158,5 +158,49 @@ namespace MVC_app.Controllers
             return RedirectToAction("Index");
         }
 
+        // GET: Product/Edit/id JSON
+        [HttpGet]
+        public ActionResult EditJSON(int id)
+        {
+            ProductModel productModel = new ProductModel();
+            StreamReader streamReader = new StreamReader(HttpContext.Server.MapPath("~/App_Data/proizvodi.json"));
+            string data = streamReader.ReadToEnd();
+            streamReader.Close();
+
+            List<ProductModel> products = new List<ProductModel>();
+            products = JsonConvert.DeserializeObject<List<ProductModel>>(data);
+
+            productModel.ID = products[id-1].ID;
+            productModel.Naziv = products[id-1].Naziv;
+            productModel.Opis = products[id-1].Opis;
+            productModel.Kategorija = products[id-1].Kategorija;
+            productModel.Proizvodjac = products[id-1].Proizvodjac;
+            productModel.Dobavljac = products[id-1].Dobavljac;
+            productModel.Cena = products[id-1].Cena;
+
+            return View(productModel);
+        }
+
+        // POST: Product/Edit/id JSON
+        [HttpPost]
+        public ActionResult EditJSON(ProductModel productModel)
+        {
+            StreamReader streamReader = new StreamReader(HttpContext.Server.MapPath("~/App_Data/proizvodi.json"));
+            string data = streamReader.ReadToEnd();
+            streamReader.Close();
+
+            List<ProductModel> products = new List<ProductModel>();
+            products = JsonConvert.DeserializeObject<List<ProductModel>>(data);
+
+            int index = products.FindIndex(x => x.ID == productModel.ID);
+            products[index] = productModel;
+
+            string jSONString = JsonConvert.SerializeObject(products);
+            StreamWriter streamWriter = System.IO.File.CreateText(HttpContext.Server.MapPath("~/App_Data/proizvodi.json"));
+            streamWriter.Write(jSONString);
+            streamWriter.Close();
+
+            return RedirectToAction("IndexJSON");
+        }
     }
 }

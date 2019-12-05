@@ -168,6 +168,7 @@
     <Content Include="Views\Product\Edit.cshtml" />
     <Content Include="Views\Product\IndexJSON.cshtml" />
     <Content Include="Views\Product\CreateJSON.cshtml" />
+    <Content Include="Views\Product\EditJSON.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

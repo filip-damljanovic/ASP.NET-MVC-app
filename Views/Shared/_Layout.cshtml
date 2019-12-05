@@ -18,6 +18,12 @@
                 </button>
                 @Html.ActionLink("WM Zadatak", "Index", "Product", new { area = "" }, new { @class = "navbar-brand" })
             </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "Index" ? "active" : "")">@Html.ActionLink("MS SQL Implementacija", "Index", "Product")</li>
+                    <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "IndexJSON" ? "active" : "")">@Html.ActionLink("JSON Implenetacija", "IndexJSON", "Product")</li>
+                </ul>
+            </div>
         </div>
     </div>
     <div class="container body-content">
