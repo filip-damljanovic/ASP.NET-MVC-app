@@ -1,0 +1,54 @@
+﻿@model List<MVC_app.Models.ProductModel>
+@{
+    ViewBag.Title = "Proizvodi JSON";
+}
+
+<h2>Proizvodi JSON</h2>
+
+<table class="table table-bordered table-striped">
+    <tr>
+        <th>
+            Naziv
+        </th>
+        <th>
+            Opis
+        </th>
+        <th>
+            Kategorija
+        </th>
+        <th>
+            Proizvodjac
+        </th>
+        <th>
+            Dobavljac
+        </th>
+        <th>
+            Cena
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @item.Naziv
+            </td>
+            <td>
+                @item.Opis
+            </td>
+            <td>
+                @item.Kategorija
+            </td>
+            <td>
+                @item.Proizvodjac
+            </td>
+            <td>
+                @item.Dobavljac
+            </td>
+            <td>
+                @item.Cena
+            </td>
+        </tr>
+    }
+
+</table>

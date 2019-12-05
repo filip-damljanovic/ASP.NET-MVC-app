@@ -69,7 +69,8 @@ C:\Users\KOMP\Desktop\project\MVC_app\MVC_app\bin\System.Web.WebPages.Razor.xml
 C:\Users\KOMP\Desktop\project\MVC_app\MVC_app\bin\Newtonsoft.Json.xml
 C:\Users\KOMP\Desktop\project\MVC_app\MVC_app\bin\Antlr3.Runtime.pdb
 C:\Users\KOMP\Desktop\project\MVC_app\MVC_app\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
-C:\Users\KOMP\Desktop\project\MVC_app\MVC_app\obj\Debug\MVC_app.csprojAssemblyReference.cache
 C:\Users\KOMP\Desktop\project\MVC_app\MVC_app\obj\Debug\MVC_app.csproj.CopyComplete
 C:\Users\KOMP\Desktop\project\MVC_app\MVC_app\obj\Debug\MVC_app.dll
 C:\Users\KOMP\Desktop\project\MVC_app\MVC_app\obj\Debug\MVC_app.pdb
+C:\Users\KOMP\Desktop\project\MVC_app\MVC_app\obj\Debug\MVC_app.csprojAssemblyReference.cache
+C:\Users\KOMP\Desktop\project\MVC_app\MVC_app\bin\App_Data\proizvodi.json

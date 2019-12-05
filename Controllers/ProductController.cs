@@ -6,6 +6,9 @@ using System.Web.Mvc;
 using System.Data;
 using System.Data.SqlClient;
 using MVC_app.Models;
+using System.IO;
+using Newtonsoft.Json;
+using System.Collections;
 
 namespace MVC_app.Controllers
 {
@@ -25,6 +28,19 @@ namespace MVC_app.Controllers
             }
 
             return View(dtblProduct);
+        }
+
+        // GET: List of products JSON
+        [HttpGet]
+        public ActionResult IndexJSON()
+        {
+            StreamReader streamReader = new StreamReader(HttpContext.Server.MapPath("~/App_Data/proizvodi.json"));
+            string data = streamReader.ReadToEnd();
+
+            List<ProductModel> products = new List<ProductModel>();
+            products = JsonConvert.DeserializeObject<List<ProductModel>>(data);
+
+            return View(products);
         }
 
         // GET: Product/Create
