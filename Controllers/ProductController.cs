@@ -71,6 +71,35 @@ namespace MVC_app.Controllers
             return RedirectToAction("Index");
         }
 
+        // GET: Product/Create JSON
+        [HttpGet]
+        public ActionResult CreateJSON()
+        {
+            return View(new ProductModel());
+        }
+
+        // POST: Product/Create JSON
+        [HttpPost]
+        public ActionResult CreateJSON(ProductModel productModel)
+        {
+            StreamReader streamReader = new StreamReader(HttpContext.Server.MapPath("~/App_Data/proizvodi.json"));
+            string data = streamReader.ReadToEnd();
+            streamReader.Close();
+
+            List<ProductModel> products = new List<ProductModel>();
+            products = JsonConvert.DeserializeObject<List<ProductModel>>(data);
+
+            productModel.ID = products[products.Count - 1].ID + 1;
+            products.Add(productModel);
+
+            string jSONString = JsonConvert.SerializeObject(products);
+            StreamWriter streamWriter = System.IO.File.CreateText(HttpContext.Server.MapPath("~/App_Data/proizvodi.json"));
+            streamWriter.Write(jSONString);
+            streamWriter.Close();
+
+            return RedirectToAction("IndexJSON");
+        }
+
         // GET: Product/Edit/id
         [HttpGet]
         public ActionResult Edit(int id)
