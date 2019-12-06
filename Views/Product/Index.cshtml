@@ -26,6 +26,8 @@
         <th>
             Cena
         </th>
+        <th></th>
+        <th></th>
     </tr>
 
 @for (int i = 0; i < Model.Rows.Count; i++) {
@@ -50,6 +52,9 @@
         </td>
         <td>
             @Html.ActionLink("Izmeni proizvod", "Edit", new { @id = @Model.Rows[i][0] })
+        </td>
+        <td>
+            @Html.ActionLink("Obrisi proizvod", "Delete", new { @id = @Model.Rows[i][0] })
         </td>
     </tr>
 }

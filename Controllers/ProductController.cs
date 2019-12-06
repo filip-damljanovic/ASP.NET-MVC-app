@@ -36,6 +36,7 @@ namespace MVC_app.Controllers
         {
             StreamReader streamReader = new StreamReader(HttpContext.Server.MapPath("~/App_Data/proizvodi.json"));
             string data = streamReader.ReadToEnd();
+            streamReader.Close();
 
             List<ProductModel> products = new List<ProductModel>();
             products = JsonConvert.DeserializeObject<List<ProductModel>>(data);
@@ -100,7 +101,7 @@ namespace MVC_app.Controllers
             return RedirectToAction("IndexJSON");
         }
 
-        // GET: Product/Edit/id
+        // GET: Product/Edit/{id}
         [HttpGet]
         public ActionResult Edit(int id)
         {
@@ -136,7 +137,7 @@ namespace MVC_app.Controllers
             
         }
 
-        // POST: Product/Edit/id
+        // POST: Product/Edit/{id}
         [HttpPost]
         public ActionResult Edit(ProductModel productModel)
         {
@@ -158,7 +159,7 @@ namespace MVC_app.Controllers
             return RedirectToAction("Index");
         }
 
-        // GET: Product/Edit/id JSON
+        // GET: Product/Edit/{id} JSON
         [HttpGet]
         public ActionResult EditJSON(int id)
         {
@@ -181,7 +182,7 @@ namespace MVC_app.Controllers
             return View(productModel);
         }
 
-        // POST: Product/Edit/id JSON
+        // POST: Product/Edit/{id} JSON
         [HttpPost]
         public ActionResult EditJSON(ProductModel productModel)
         {
@@ -194,6 +195,44 @@ namespace MVC_app.Controllers
 
             int index = products.FindIndex(x => x.ID == productModel.ID);
             products[index] = productModel;
+
+            string jSONString = JsonConvert.SerializeObject(products);
+            StreamWriter streamWriter = System.IO.File.CreateText(HttpContext.Server.MapPath("~/App_Data/proizvodi.json"));
+            streamWriter.Write(jSONString);
+            streamWriter.Close();
+
+            return RedirectToAction("IndexJSON");
+        }
+
+        // GET: Product/Delete/{id}
+        [HttpGet]
+        public ActionResult Delete(int id)
+        {
+            using (SqlConnection sqlCon = new SqlConnection(connectionString))
+            {
+                sqlCon.Open();
+                string query = "DELETE FROM Proizvodi WHERE ID = @ID";
+                SqlCommand sqlCmd = new SqlCommand(query, sqlCon);
+                sqlCmd.Parameters.AddWithValue("@ID", id);
+                sqlCmd.ExecuteNonQuery();
+            }
+
+            return RedirectToAction("Index");
+        }
+
+        // GET: Product/Delete/{id} JSON
+        [HttpGet]
+        public ActionResult DeleteJSON(int id)
+        {
+            StreamReader streamReader = new StreamReader(HttpContext.Server.MapPath("~/App_Data/proizvodi.json"));
+            string data = streamReader.ReadToEnd();
+            streamReader.Close();
+
+            List<ProductModel> products = new List<ProductModel>();
+            products = JsonConvert.DeserializeObject<List<ProductModel>>(data);
+
+            int index = products.FindIndex(x => x.ID == id);
+            products.RemoveAt(index);
 
             string jSONString = JsonConvert.SerializeObject(products);
             StreamWriter streamWriter = System.IO.File.CreateText(HttpContext.Server.MapPath("~/App_Data/proizvodi.json"));

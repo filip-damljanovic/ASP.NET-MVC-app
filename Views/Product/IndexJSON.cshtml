@@ -25,6 +25,8 @@
         <th>
             Cena
         </th>
+        <th></th>
+        <th></th>
     </tr>
 
     @foreach (var item in Model)
@@ -50,6 +52,9 @@
     </td>
     <td>
         @Html.ActionLink("Izmeni proizvod", "EditJSON", new { @id = @item.ID })
+    </td>
+    <td>
+        @Html.ActionLink("Obrisi proizvod", "DeleteJSON", new { @id = @item.ID })
     </td>
 </tr>
     }
